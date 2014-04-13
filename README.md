@@ -9,7 +9,7 @@ I had a need for one I always hoped that there would exist one that was similar 
 A parser that didn't need any code generation or byte code weaving etc. A parser that I could use
 in plain Java or any other JVM based language. I've also always felt that [LPeg][lpeg] was an
 interesting kind of implementation. Turning a parse tree into a fast virtual machine that's run
-during the match phase. This lead me to start this project. To learn more about the internals
+during the match phase. This led me to start this project. To learn more about the internals
 of [LPeg][lpeg] and see if I could do an implementation for the platform I spend my days at work
 developing for.
 
