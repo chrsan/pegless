@@ -521,47 +521,45 @@ public class Pattern {
     }
 
     /**
-     * Same as {@link #times(Pattern, int)} specifying this instance as
-     * the first argument.
+     * Same as {@link #times(Pattern, int, boolean)} specifying this instance as
+     * the first argument and {@code false} for the {@code grammar} argument.
      *
      * @return A new pattern.
      */
     public Pattern times(int n) {
-        return times(this, n);
+        return times(this, n, false);
     }
 
     /**
      * Returns a pattern that represents a pattern repetition of what's
      * matched by {@code pattern} <strong>exactly</strong> {@code n} times.
+     * <p/>
+     * The {@code grammar} argument specifies if the {@code pattern} should
+     * be repeated using a grammar. This could be a good choice for a complex
+     * pattern. For simple patterns it might be better to not use a grammar.
      *
      * @param pattern A pre-existing pattern.
      * @param n A positive number {@code > 0}.
+     * @param grammar If the pattern should be repeated using a grammar.
      * @return A new pattern.
      */
-    public static Pattern times(Pattern pattern, int n) {
+    public static Pattern times(Pattern pattern, int n, boolean grammar) {
         if (n <= 0)
             throw new IllegalArgumentException("n <= 0");
 
-        // TODO: Whats the best way? Maybe define in a helper pattern class instead?
-
-        /*
-        if (Analyzer.isNullable(pattern.tree))
-            throw new IllegalArgumentException("Loop body may accept the empty string");
-
-        Tree tree = new Tree();
-        Tree t = tree;
-
-        while (n-- > 0)
-            t = Sequence.add(t, pattern.tree);
-
-        t.type = Type.TRUE;
-
-        return new Pattern(tree, pattern.refs);
-        */
-
-        /*
         if (n == 1)
             return pattern;
+
+        if (!grammar) {
+            if (pattern.root.isNullable())
+                throw new IllegalArgumentException("Loop body may accept the empty string");
+
+            SeqNode seqNode = new SeqNode(pattern.root.copy(), pattern.root.copy());
+            while (n-- > 2)
+                seqNode = new SeqNode(pattern.root.copy(), seqNode);
+
+            return new Pattern(seqNode, pattern.refs);
+        }
 
         Pattern ref = ref("p");
         Pattern refs = seq(ref, ref);
@@ -569,8 +567,6 @@ public class Pattern {
             refs = seq(refs, ref);
 
         return grammar(new Rule("c", refs), new Rule("p", pattern));
-        */
-        return null;
     }
 
     /**
