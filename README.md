@@ -79,7 +79,7 @@ Calling `print` on a pattern prints its parse tree:
          char )
 ```
 
-Calling `print` on a pattern matcher print its instructions:
+Calling `print` on a pattern matcher prints its instructions:
 
 ```
 00: CALL -> 2
