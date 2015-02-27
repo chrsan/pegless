@@ -113,6 +113,11 @@ while (capturer.size() != 0)
     n += parseInt(capturer.pop().value);
 ```
 
+## License
+
+Released under the [Apache License][license].
+
 [peg]:http://pdos.csail.mit.edu/%7Ebaford/packrat/
 [lpeg]:http://www.inf.puc-rio.br/~roberto/lpeg/
 [unicode]:http://www.unicode.org/
+[license]:http://www.apache.org/licenses/LICENSE-2.0
